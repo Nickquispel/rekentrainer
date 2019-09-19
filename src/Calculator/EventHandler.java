@@ -27,6 +27,7 @@ public class EventHandler {
     public Text title;
     public TextField textfield;
     public Button b1;
+    public Name name;
 
     public EventHandler (GridPane p) {
         
@@ -34,6 +35,7 @@ public class EventHandler {
         title = new Text ("Vul hieronder je naam in om de rekentrainer te starten");
         textfield = new TextField();
         b1 = new Button ("Start");
+        name = new Name();
         
         p.setVgap(10);
         p.setHgap(10);
@@ -43,6 +45,15 @@ public class EventHandler {
         p.add(title,0,1);
         p.add(textfield,0,2);
         p.add(b1,0,3);
+        
+        b1.setOnAction(event -> {
+        
+            String name1 = textfield.getText().toString();
+            name.setName(name1);
+            new Settings(p);
+            
+            
+        });
     
 }
 
