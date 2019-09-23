@@ -13,11 +13,13 @@ import java.io.IOException;
  */
 public class Name {
     private String name = "";
+    private String title = "";
    
     
 
     
     public void setName (String name){
+        this.name ="";
         this.name += name;
     }
     
@@ -25,6 +27,13 @@ public class Name {
         return name;
     }
     
+    public void setTitle (String title){
+        this.title = "";
+        this.title += title;
+    }
     
+    public String getTitle () {
+        return title;
+    }
     
 }
