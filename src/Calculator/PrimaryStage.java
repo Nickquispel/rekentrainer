@@ -28,7 +28,7 @@ public class PrimaryStage extends Application {
     name.setTitle(title);
     
     
-    new Keuzescherm(root);
+    new Oefeningen(root);
     
     
     primaryStage.setScene(scene);

@@ -15,9 +15,7 @@ public class Name {
     private String name = "";
     private String title = "";
    
-    
-
-    
+        
     public void setName (String name){
         this.name ="";
         this.name += name;
