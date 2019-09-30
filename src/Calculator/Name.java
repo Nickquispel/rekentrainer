@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Name {
     private String name = "";
     private String title = "";
-   
+    private String group = "";
         
     public void setName (String name){
         this.name ="";
@@ -32,6 +32,15 @@ public class Name {
     
     public String getTitle () {
         return title;
+    }
+    
+    public void setGroup (String group){
+        this.group = "";
+        this.group += group;
+    }
+    
+    public String getGroup () {
+        return group;
     }
     
 }

@@ -20,18 +20,14 @@ public class PrimaryStage extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-    GridPane root = new GridPane();
-    Scene scene = new Scene(root,450,300);
+
+    Startscherm startscherm = new Startscherm(primaryStage);
     
     name = new Name();
     title = new String ("Start scherm");
     name.setTitle(title);
     
-    
-    new Oefeningen(root);
-    
-    
-    primaryStage.setScene(scene);
+   
     primaryStage.setTitle(" Rekentrainer - "+ name.getTitle());
     primaryStage.show();
     primaryStage.setFullScreen(false);

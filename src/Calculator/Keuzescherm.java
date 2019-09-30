@@ -6,12 +6,14 @@
 package Calculator;
 
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  *
@@ -26,7 +28,12 @@ public class Keuzescherm {
     public RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7,rb8;
     public ToggleGroup group1,group2;
     
-    public Keuzescherm (GridPane p){
+    public Keuzescherm (Stage primaryStage){
+        GridPane p = new GridPane();
+        Scene scene = new Scene(p,450,250);
+        
+        primaryStage.setScene(scene);
+        
         
         group1 = new ToggleGroup();
         group2 = new ToggleGroup();
@@ -55,10 +62,20 @@ public class Keuzescherm {
         b1.setMaxWidth(Double.MAX_VALUE);
         
         textfield = new TextField();
-        name = new Name();
+      
         
         title = new String ("Keuze scherm");
-        name.setTitle(title);
+        primaryStage.setTitle(" Rekentrainer - Keuze scherm ");
+        
+        b1.setOnAction(event->{
+            RadioButton selectedRadioButton = (RadioButton) group1.getSelectedToggle();
+            String toggleGroupValue = selectedRadioButton.getText();
+            name.setGroup(toggleGroupValue);
+            textfield.setText(name.getGroup());
+//            new Oefeningen(primaryStage);
+        });
+        
+        
         
         p.setVgap(10);
         p.setHgap(10);
