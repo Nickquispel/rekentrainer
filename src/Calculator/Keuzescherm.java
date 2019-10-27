@@ -7,6 +7,7 @@ package Calculator;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -15,25 +16,29 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+
 /**
  *
  * @author nick
  */
 public class Keuzescherm {
     public Text t1,t2,t3,t4;
-    public Name name;
     public Button b1;
     public String title;
     public TextField textfield;
     public RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7,rb8;
     public ToggleGroup group1,group2;
+    public Name name;
+    public boolean random;
     
-    public Keuzescherm (Stage primaryStage){
+    public Keuzescherm (Stage primaryStage, Name name){
+        this.name = name;
+        
         GridPane p = new GridPane();
         Scene scene = new Scene(p,450,250);
         
         primaryStage.setScene(scene);
-        
         
         group1 = new ToggleGroup();
         group2 = new ToggleGroup();
@@ -67,16 +72,64 @@ public class Keuzescherm {
         title = new String ("Keuze scherm");
         primaryStage.setTitle(" Rekentrainer - Keuze scherm ");
         
-        b1.setOnAction(event->{
+        b1.setOnAction(event-> {
             RadioButton selectedRadioButton = (RadioButton) group1.getSelectedToggle();
+            RadioButton selectedRadioButton2 = (RadioButton) group2.getSelectedToggle();
+  
+            if (selectedRadioButton == null){
+              Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("test");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Kies een groep");           
+                    alert.showAndWait();  
+                    return;
+            }
+            
+            if (textfield.getText().isEmpty()){
+               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("test");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Kies hoeveel sommen je wilt doen");           
+                    alert.showAndWait(); 
+                    return;
+            }
+            
+            if (Integer.parseInt(textfield.getText()) > 15){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("test");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Kies een aantal tussen 1 en 15 ");           
+                    alert.showAndWait();  
+                    return;
+            }
+            
+            if (selectedRadioButton2 == null){
+              Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("test");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Kies of je de sommen door elkaar heen wil ");           
+                    alert.showAndWait();  
+                    return;
+            }
+            
             String toggleGroupValue = selectedRadioButton.getText();
+            String toggleGroupValue2 = selectedRadioButton2.getText();
             name.setGroup(toggleGroupValue);
-            textfield.setText(name.getGroup());
-//            new Oefeningen(primaryStage);
-        });
-        
-        
-        
+            
+            int quantity = Integer.parseInt(textfield.getText());
+            name.setquantity(quantity);
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("test");
+                    alert.setHeaderText(null);
+                    if (toggleGroupValue2 == "ja"){
+                    alert.setContentText("Je krijgt nu "  +name.getquantity() + " sommen van " + name.getGroup()+ " door elkaar heen"); 
+                    } else{alert.setContentText("Je krijgt nu "  +name.getquantity() + " sommen van " + name.getGroup()+ " op volgorde"); }
+                    alert.showAndWait();
+            
+          new Oefeningen(primaryStage,name);
+        }); 
+
         p.setVgap(10);
         p.setHgap(10);
         p.setPadding(new Insets(10,10,10,10));

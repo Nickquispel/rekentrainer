@@ -33,6 +33,7 @@ public class Startscherm{
     public Button b1;
     public Name name;
     public Alert alert;
+    public String string1;
     
     
     
@@ -47,8 +48,7 @@ public class Startscherm{
         b1 = new Button ("Start");
         name = new Name();
         GridPane root = new GridPane();
-
-                
+    
         p.setVgap(10);
         p.setHgap(10);
         p.setPadding(new Insets(10,10,10,10));
@@ -80,7 +80,7 @@ public class Startscherm{
                     
                     alert.showAndWait();
                     
-                    new Keuzescherm(primaryStage);
+                    new Keuzescherm(primaryStage,name);
                     
             }
         });
@@ -105,7 +105,7 @@ public class Startscherm{
                     
                     alert.showAndWait();
                     
-                    new Keuzescherm(primaryStage);
+                    new Keuzescherm(primaryStage, name);
                     
             }
             

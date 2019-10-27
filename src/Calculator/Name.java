@@ -15,6 +15,8 @@ public class Name {
     private String name = "";
     private String title = "";
     private String group = "";
+    private int quantity = 0;
+    boolean random;
         
     public void setName (String name){
         this.name ="";
@@ -41,6 +43,15 @@ public class Name {
     
     public String getGroup () {
         return group;
+    }
+    
+    public void setquantity(int quantity){
+        this.quantity = 0;
+        this.quantity = quantity;
+    }
+    
+    public int getquantity(){
+        return quantity;
     }
     
 }
