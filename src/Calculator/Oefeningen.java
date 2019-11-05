@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -26,7 +27,8 @@ public class Oefeningen {
    
     public Button b1;
     public Text title, text1;
-    public TextField textfield, textfield2;
+    public TextField textfield;
+    public TextArea textfield2;
     public Name name;
     public BufferedReader reader;
 
@@ -51,9 +53,9 @@ public class Oefeningen {
         
         
         textfield = new TextField();
-        textfield2 = new TextField("Aantal sommen tot nu toe goed: \nAantal sommen tot nu toe fout: \n Nog sommen te gaan");
+        textfield2 = new TextArea("Aantal sommen tot nu toe goed: \nAantal sommen tot nu toe fout: \nNog sommen te gaan");
         textfield2.setEditable(false);
-        textfield2.setAlignment(Pos.CENTER_RIGHT);
+        
         
         text1 = new Text("test");
 
@@ -67,6 +69,13 @@ public class Oefeningen {
         p.setVgap(10);
         p.setHgap(10);
         p.setPadding(new Insets(10,10,10,10));
+
+        b1.setOnAction(event ->{
+           
+            new Resultaat(primaryStage, name);
+        
+        });
+        
             
         
         p.add(title,0,1);
