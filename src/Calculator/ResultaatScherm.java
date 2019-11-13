@@ -5,13 +5,13 @@
  */
 package Calculator;
 
+import static java.lang.String.format;
+import java.text.DecimalFormat;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -37,15 +37,15 @@ public class ResultaatScherm {
         primaryStage.setTitle(" Rekentrainer - Resultaat " + name.getName());
         
         GridPane p = new GridPane();
-        Scene scene = new Scene(p,550,250);
+        Scene scene = new Scene(p,550,220);
             
         primaryStage.setScene(scene);
-
+        DecimalFormat df = new DecimalFormat("#.00"); 
         
         
         b1 = new Button ("Nog een keer");
         b2 = new Button ("Stoppen");
-        textfield = new TextArea ("Aantal sommen goed: "+aantalGoed+"\nAantal sommen fout:"+ aantalFout + "\nscore "+((name.getquantity()-aantalFout)/(double) name.getquantity()*100)+ "%");
+        textfield = new TextArea ("Aantal sommen goed: "+aantalGoed+"\nAantal sommen fout: "+ aantalFout + "\nscore "+df.format(((name.getquantity()-aantalFout)/(double) name.getquantity()*100))+ "%");
         textfield.setEditable(false);
         
         title = new Text ("Je hebt de  opdracht afgerond " + name.getName() + ", hieronder zie je wat je resultaat is");

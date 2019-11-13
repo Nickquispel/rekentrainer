@@ -94,11 +94,11 @@ public class Keuzescherm {
                     return;
             }
             
-            if (Integer.parseInt(textfield.getText()) > 15){
+            if (Integer.parseInt(textfield.getText()) > 5){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("test");
                     alert.setHeaderText(null);
-                    alert.setContentText("Kies een aantal tussen 1 en 15 ");           
+                    alert.setContentText("Kies een aantal tussen 1 en 5 ");           
                     alert.showAndWait();  
                     return;
             }
@@ -123,8 +123,8 @@ public class Keuzescherm {
                     alert.setTitle("test");
                     alert.setHeaderText(null);
                     if (toggleGroupValue2 == "ja"){
-                    alert.setContentText("Je krijgt nu "  +name.getquantity() + " sommen van " + name.getGroup()+ " door elkaar heen"); 
-                    } else{alert.setContentText("Je krijgt nu "  +name.getquantity() + " sommen van " + name.getGroup()+ " op volgorde"); }
+                    alert.setContentText("Je krijgt nu "  +name.getquantity() + " sommen van verschillende groepen door elkaar heen"); 
+                    } else{alert.setContentText("Je krijgt nu "  +name.getquantity() + " sommen van " + name.getGroup()); }
                     alert.showAndWait();
             
           new Oefeningen(primaryStage,name);

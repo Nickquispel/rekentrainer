@@ -5,14 +5,15 @@
  */
 package Calculator;
 
-import static java.lang.Math.random;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -53,18 +54,23 @@ public class Oefeningen {
         */
         primaryStage.setTitle(" Rekentrainer - " + name.getGroup());
         GridPane p = new GridPane();
-        Scene scene = new Scene(p,450,250);
+        Scene scene = new Scene(p,450,220);
         primaryStage.setScene(scene);
         
          /**
           * Setting up GUI
           */       
          title = new Text ("Welkom "+ name.getName()+ ",  Vul het antwoord van de volgende som in?");
-         text1 = new Text(oefeningenGen.getGetalA()+" "+oefeningenGen.getOperator()+" "+oefeningenGen.getGetalB()+" = ");
-
+         text1 = new Text("  "+oefeningenGen.getGetalA()+"  "+oefeningenGen.getOperator()+"  "+oefeningenGen.getGetalB()+"  = ");
+         text1.setFont(Font.font ("Verdana", 20));
+         text1.setTextAlignment(TextAlignment.CENTER);
+         
+         
          AntwoordVak = new TextField();
-         textfield2 = new TextArea("Aantal sommen tot nu toe goed:" + aantalGoed +"\nAantal sommen tot nu toe fout:"+ aantalFout +"\nNog "+ aantalTeGaan +" sommen te maken");
+         textfield2 = new TextArea("Aantal sommen tot nu toe goed: " + aantalGoed +"\nAantal sommen tot nu toe fout: "+ aantalFout +"\nNog "+ aantalTeGaan +" sommen te maken");
          textfield2.setEditable(false);
+         textfield2.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+         textfield2.setFont(Font.font ("Verdana", 14));
         
          b1 = new Button ("Volgende som");
 
@@ -80,7 +86,7 @@ public class Oefeningen {
         p.setPadding(new Insets(10,10,10,10));
         
         
-        p.add(title,0,1);
+        p.add(title,0,1,2,1);
         p.add(text1,0,2);
         p.add(AntwoordVak,1,2);
         p.add(b1,0,3);
@@ -116,13 +122,42 @@ public class Oefeningen {
                 new ResultaatScherm(primaryStage, name, aantalGoed,aantalFout);
             }
         });
+        
+        
+        AntwoordVak.setOnAction(event ->{
+            
+            try{
+                input = Integer.parseInt(AntwoordVak.getText());
+            }catch(NumberFormatException nfe) {
+                nfe.printStackTrace();
+                System.out.println("NumberFormatException in invulVak");
+            }
+            
+            if(input == oefeningenGen.getAntwoordGetal()) {
+                aantalGoed++;
+            }
+            else{
+                aantalFout++;
+            }
+            aantalTeGaan--;
+            
+            if (aantalTeGaan == 1){
+                b1.setText("Naar resultaat");
+            }
+            if (aantalTeGaan > 0){
+                refresh();
+            }
+            if (aantalTeGaan == 0){
+                new ResultaatScherm(primaryStage, name, aantalGoed,aantalFout);
+            }
+        });
                 
     } 
     
      public void refresh() {
         oefeningenGen.genereerOpgave();
         text1.setText(oefeningenGen.getGetalA() + "  " + oefeningenGen.getOperator() + "  " + oefeningenGen.getGetalB() + "   = ");
-        textfield2.setText("Aantal sommen tot nu toe goed:" + aantalGoed +"\nAantal sommen tot nu toe fout:"+ aantalFout +"\nNog "+ aantalTeGaan +" sommen te maken");
+        textfield2.setText("Aantal sommen tot nu toe goed: " + aantalGoed +"\nAantal sommen tot nu toe fout: "+ aantalFout +"\nNog "+ aantalTeGaan +" sommen te maken");
         AntwoordVak.setText("");
 
     
