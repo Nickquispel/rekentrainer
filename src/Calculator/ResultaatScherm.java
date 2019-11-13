@@ -21,16 +21,17 @@ import javafx.stage.Stage;
  *
  * @author nick
  */
-public class Resultaat {
+public class ResultaatScherm {
    
-    public Button b1,b2;
-    public Text title;
-    public Name name;
-    public TextArea textfield;
+    private Button b1,b2;
+    private Text title;
+    private Name name;
+    private TextArea textfield;
+    private int aantalGoed, aantalFout;
     
 
     
-    public Resultaat (Stage primaryStage, Name name){
+    public ResultaatScherm (Stage primaryStage, Name name, int aantalGoed, int aantalFout){
         this.name = name;
         
         primaryStage.setTitle(" Rekentrainer - Resultaat " + name.getName());
@@ -44,7 +45,7 @@ public class Resultaat {
         
         b1 = new Button ("Nog een keer");
         b2 = new Button ("Stoppen");
-        textfield = new TextArea ("Aantal sommen goed: \nAantal sommen fout: \nscore");
+        textfield = new TextArea ("Aantal sommen goed: "+aantalGoed+"\nAantal sommen fout:"+ aantalFout + "\nscore "+((name.getquantity()-aantalFout)/(double) name.getquantity()*100)+ "%");
         textfield.setEditable(false);
         
         title = new Text ("Je hebt de  opdracht afgerond " + name.getName() + ", hieronder zie je wat je resultaat is");
@@ -61,9 +62,7 @@ public class Resultaat {
         b2.setOnAction(event ->{
             Platform.exit();
         });
-        
-        
-        
+ 
         p.setVgap(10);
         p.setHgap(10);
         p.setPadding(new Insets(10,10,10,10));

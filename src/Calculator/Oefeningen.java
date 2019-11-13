@@ -5,9 +5,7 @@
  */
 package Calculator;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import static java.lang.Math.random;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,69 +23,114 @@ import javafx.stage.Stage;
  */
 public class Oefeningen {
    
-    public Button b1;
-    public Text title, text1;
-    public TextField textfield;
-    public TextArea textfield2;
-    public Name name;
-    public BufferedReader reader;
-
+    private Button b1;
+    private Text title, text1;
+    private TextField AntwoordVak;
+    private TextArea textfield2;
+    private Name name;
+    private OefeningenGen oefeningenGen;
+    private int input,aantal,aantalGoed,aantalFout,aantalTeGaan;
+    private boolean random;
+    private String groep;
+    
+   
     
     public Oefeningen (Stage primaryStage, Name name){
         this.name = name;
+        groep = name.getGroup();
+        aantal = name.getquantity();
+        random = name.random;
         
+        aantalGoed = 0;
+        aantalFout = 0;
+        aantalTeGaan = aantal;
+        
+        
+        oefeningenGen = new OefeningenGen(name);
+        
+        /**
+         * Setting up Primary Stage
+        */
         primaryStage.setTitle(" Rekentrainer - " + name.getGroup());
-        
         GridPane p = new GridPane();
         Scene scene = new Scene(p,450,250);
-        
         primaryStage.setScene(scene);
+        
+         /**
+          * Setting up GUI
+          */       
+         title = new Text ("Welkom "+ name.getName()+ ",  Vul het antwoord van de volgende som in?");
+         text1 = new Text(oefeningenGen.getGetalA()+" "+oefeningenGen.getOperator()+" "+oefeningenGen.getGetalB()+" = ");
 
-        try{
-        reader = new BufferedReader(new FileReader("groep3"));
-        } catch(FileNotFoundException e){
-            System.out.println("file not found");
-        }
+         AntwoordVak = new TextField();
+         textfield2 = new TextArea("Aantal sommen tot nu toe goed:" + aantalGoed +"\nAantal sommen tot nu toe fout:"+ aantalFout +"\nNog "+ aantalTeGaan +" sommen te maken");
+         textfield2.setEditable(false);
         
-        b1 = new Button ("Volgende som");
-        
-        
-        textfield = new TextField();
-        textfield2 = new TextArea("Aantal sommen tot nu toe goed: \nAantal sommen tot nu toe fout: \nNog sommen te gaan");
-        textfield2.setEditable(false);
-        
-        
-        text1 = new Text("test");
+         b1 = new Button ("Volgende som");
 
-        
-        title = new Text ("Welkom "+ name.getName()+ ",  Vul het antwoord van de volgende som in?");
-
+         /**
+          * Positioning GUI
+          */
         title.setTextAlignment(TextAlignment.CENTER);
-        textfield.setAlignment(Pos.CENTER);
+        AntwoordVak.setAlignment(Pos.CENTER);
         b1.setMaxWidth(Double.MAX_VALUE);
         p.setAlignment(Pos.CENTER);
         p.setVgap(10);
         p.setHgap(10);
         p.setPadding(new Insets(10,10,10,10));
-
-        b1.setOnAction(event ->{
-           
-            new Resultaat(primaryStage, name);
         
-        });
-        
-            
         
         p.add(title,0,1);
         p.add(text1,0,2);
-        p.add(textfield,1,2);
+        p.add(AntwoordVak,1,2);
         p.add(b1,0,3);
         p.add(textfield2,0,4,2,2);
-        
-        
-   
+
+        /**
+         * Event handler
+         */
+        b1.setOnAction(event ->{
+            
+            try{
+                input = Integer.parseInt(AntwoordVak.getText());
+            }catch(NumberFormatException nfe) {
+                nfe.printStackTrace();
+                System.out.println("NumberFormatException in invulVak");
+            }
+            
+            if(input == oefeningenGen.getAntwoordGetal()) {
+                aantalGoed++;
+            }
+            else{
+                aantalFout++;
+            }
+            aantalTeGaan--;
+            
+            if (aantalTeGaan == 1){
+                b1.setText("Naar resultaat");
+            }
+            if (aantalTeGaan > 0){
+                refresh();
+            }
+            if (aantalTeGaan == 0){
+                new ResultaatScherm(primaryStage, name, aantalGoed,aantalFout);
+            }
+        });
                 
     } 
+    
+     public void refresh() {
+        oefeningenGen.genereerOpgave();
+        text1.setText(oefeningenGen.getGetalA() + "  " + oefeningenGen.getOperator() + "  " + oefeningenGen.getGetalB() + "   = ");
+        textfield2.setText("Aantal sommen tot nu toe goed:" + aantalGoed +"\nAantal sommen tot nu toe fout:"+ aantalFout +"\nNog "+ aantalTeGaan +" sommen te maken");
+        AntwoordVak.setText("");
+
+    
+    }
 }
+        
+        
+        
+        
     
     
